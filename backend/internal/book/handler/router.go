@@ -1,0 +1,11 @@
+package handler
+
+import (
+	"github.com/gin-gonic/gin"
+)
+
+func RegisterRoutes(router *gin.Engine, h *bookHandler) {
+	book := router.Group("/books")
+
+	book.GET("", h.GetBooks)
+}

@@ -1,0 +1,23 @@
+package usecase
+
+import (
+	"backend/internal/book/entity"
+	"backend/internal/book/repo"
+	"context"
+)
+
+type bookUsecase struct {
+	bookRepo repo.BookRepo
+}
+
+func NewBookUsecase(
+	bookRepo repo.BookRepo,
+) BookUsecase {
+	return &bookUsecase{
+		bookRepo,
+	}
+}
+
+func (uc *bookUsecase) GetBooks(ctx context.Context) ([]entity.Book, error) {
+	return uc.bookRepo.GetBooks(ctx)
+}
