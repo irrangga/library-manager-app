@@ -5,6 +5,7 @@ import (
 	bookhandler "backend/internal/book/handler"
 	bookrepo "backend/internal/book/repo"
 	bookusecase "backend/internal/book/usecase"
+	"backend/pkg/middleware"
 	"fmt"
 	"log"
 
@@ -45,7 +46,8 @@ func main() {
 	bookHandler := bookhandler.NewBookHandler(bookUsecase)
 
 	// Router inititialization.
-	router := gin.Default()
+	router := gin.New()
+	router.Use(middleware.Logger())
 	bookhandler.RegisterRoutes(router, bookHandler)
 
 	httpPort := ":" + cfg.HTTP.Port
