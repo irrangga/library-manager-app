@@ -7,4 +7,5 @@ import (
 
 type BookRepo interface {
 	GetBooks(ctx context.Context) ([]entity.Book, error)
+	AddBook(ctx context.Context, book entity.Book) (entity.Book, error)
 }

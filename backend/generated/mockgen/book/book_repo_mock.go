@@ -41,6 +41,21 @@ func (m *MockBookRepo) EXPECT() *MockBookRepoMockRecorder {
 	return m.recorder
 }
 
+// AddBook mocks base method.
+func (m *MockBookRepo) AddBook(ctx context.Context, book entity.Book) (entity.Book, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddBook", ctx, book)
+	ret0, _ := ret[0].(entity.Book)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AddBook indicates an expected call of AddBook.
+func (mr *MockBookRepoMockRecorder) AddBook(ctx, book any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddBook", reflect.TypeOf((*MockBookRepo)(nil).AddBook), ctx, book)
+}
+
 // GetBooks mocks base method.
 func (m *MockBookRepo) GetBooks(ctx context.Context) ([]entity.Book, error) {
 	m.ctrl.T.Helper()

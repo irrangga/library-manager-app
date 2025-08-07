@@ -21,3 +21,7 @@ func NewBookUsecase(
 func (uc *bookUsecase) GetBooks(ctx context.Context) ([]entity.Book, error) {
 	return uc.bookRepo.GetBooks(ctx)
 }
+
+func (uc *bookUsecase) AddBook(ctx context.Context, input entity.Book) (entity.Book, error) {
+	return uc.bookRepo.AddBook(ctx, input)
+}

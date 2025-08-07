@@ -31,3 +31,19 @@ func (r *bookRepo) GetBooks(ctx context.Context) ([]entity.Book, error) {
 
 	return mapper.ToBookEntities(bookModels), nil
 }
+
+func (r *bookRepo) AddBook(ctx context.Context, book entity.Book) (entity.Book, error) {
+	bookModel := model.Book{
+		Title:     book.Title,
+		Author:    book.Author,
+		Publisher: book.Publisher,
+		Year:      book.Year,
+	}
+
+	err := r.db.WithContext(ctx).Create(&bookModel).Error
+	if err != nil {
+		return entity.Book{}, err
+	}
+
+	return mapper.ToBookEntity(bookModel), nil
+}

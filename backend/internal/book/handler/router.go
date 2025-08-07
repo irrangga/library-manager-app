@@ -8,4 +8,5 @@ func RegisterRoutes(router *gin.Engine, h *bookHandler) {
 	book := router.Group("/books")
 
 	book.GET("", h.GetBooks)
+	book.POST("", h.AddBook)
 }
