@@ -1,5 +1,5 @@
 import { env } from "@/lib/config/env"
-import { Book } from "@/lib/definitions/book"
+import { Book, emptyBook } from "@/lib/definitions/book"
 import axios from "axios"
 
 export async function getBooks(): Promise<{
@@ -13,6 +13,23 @@ export async function getBooks(): Promise<{
     return {
       data: [],
       error: error.response?.data?.error || "Failed to fetch books",
+    }
+  }
+}
+
+export async function addBook(
+  book: Omit<Book, "id">,
+): Promise<{ data: Book; error: Error | null }> {
+  try {
+    const response = await axios.post<{ data: Book }>(
+      `${env.API_URL}/books`,
+      book,
+    )
+    return { data: response.data.data, error: null }
+  } catch (error: any) {
+    return {
+      data: emptyBook,
+      error: error.response?.data?.error || "Failed to add a book",
     }
   }
 }

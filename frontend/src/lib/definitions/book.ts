@@ -3,5 +3,13 @@ export type Book = {
   title: string
   author: string
   publisher: string
-  year: number
+  year: number | undefined
+}
+
+export const emptyBook: Book = {
+  id: 0,
+  title: "",
+  author: "",
+  publisher: "",
+  year: undefined,
 }
