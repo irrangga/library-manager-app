@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useBookContext } from "@/lib/context/book"
 import { Book, emptyBook } from "@/lib/definitions/book"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -108,15 +109,17 @@ export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {books.map((book) => (
-          <Card key={book.id}>
-            <CardHeader>
-              <CardTitle>{book.title || "-"}</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm space-y-1">
-              <p>{book.author || "-"}</p>
-              <p>{book.publisher || "-"}</p>
-              <p>{book.year || "-"}</p>
-            </CardContent>
+          <Card key={book.id} asChild>
+            <Link href={`/books/${book.id}`}>
+              <CardHeader>
+                <CardTitle>{book.title || "-"}</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-1">
+                <p>{book.author || "-"}</p>
+                <p>{book.publisher || "-"}</p>
+                <p>{book.year || "-"}</p>
+              </CardContent>
+            </Link>
           </Card>
         ))}
       </div>

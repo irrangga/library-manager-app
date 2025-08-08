@@ -33,3 +33,19 @@ export async function addBook(
     }
   }
 }
+
+export async function getBookById(
+  id: string,
+): Promise<{ data: Book; error: Error | null }> {
+  try {
+    const response = await axios.get<{ data: Book }>(
+      `${env.API_URL}/books/${id}`,
+    )
+    return { data: response.data.data, error: null }
+  } catch (error: any) {
+    return {
+      data: emptyBook,
+      error: error.response?.data?.error || "Failed to fetch a book",
+    }
+  }
+}
