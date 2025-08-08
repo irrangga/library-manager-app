@@ -58,3 +58,20 @@ func (r *bookRepo) GetBookByID(ctx context.Context, id int64) (entity.Book, erro
 
 	return mapper.ToBookEntity(bookModel), nil
 }
+
+func (r *bookRepo) UpdateBook(ctx context.Context, book entity.Book) (entity.Book, error) {
+	bookModel := model.Book{
+		ID:        book.ID,
+		Title:     book.Title,
+		Author:    book.Author,
+		Publisher: book.Publisher,
+		Year:      book.Year,
+	}
+
+	err := r.db.WithContext(ctx).Save(&bookModel).Error
+	if err != nil {
+		return entity.Book{}, err
+	}
+
+	return mapper.ToBookEntity(bookModel), nil
+}

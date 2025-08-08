@@ -69,3 +69,31 @@ func (h *bookHandler) GetBookByID(ctx *gin.Context) {
 
 	httputil.Success(ctx, mapper.ToBookResponse(book))
 }
+
+func (h *bookHandler) UpdateBookByID(ctx *gin.Context) {
+	id, err := httputil.GetPathParamInt64(ctx, "id")
+	if err != nil {
+		httputil.Error(ctx, http.StatusBadRequest, err.Error())
+	}
+
+	var req dto.BookRequest
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		httputil.Error(ctx, http.StatusBadRequest, err.Error())
+	}
+
+	input := entity.Book{
+		ID:        id,
+		Title:     req.Title,
+		Author:    req.Author,
+		Publisher: req.Publisher,
+		Year:      req.Year,
+	}
+
+	book, err := h.bookUsecase.UpdateBook(ctx.Request.Context(), input)
+	if err != nil {
+		httputil.Error(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	httputil.Success(ctx, mapper.ToBookResponse(book))
+}

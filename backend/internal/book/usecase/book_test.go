@@ -243,3 +243,76 @@ func Test_bookUsecase_GetBookByID(t *testing.T) {
 		})
 	}
 }
+
+func Test_bookUsecase_UpdateBook(t *testing.T) {
+	ctrl := gomock.NewController(t)
+
+	bookRepoMock := book.NewMockBookRepo(ctrl)
+
+	book := entity.Book{
+		ID:        1,
+		Title:     "Book 1",
+		Author:    "Author 1",
+		Publisher: "Publisher 1",
+		Year:      2021,
+	}
+
+	type fields struct {
+		bookRepo repo.BookRepo
+	}
+	type args struct {
+		ctx   context.Context
+		input entity.Book
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		mock    func()
+		want    entity.Book
+		wantErr error
+	}{
+		{
+			name: "UpdateBook returns book successfully",
+			fields: fields{
+				bookRepo: bookRepoMock,
+			},
+			args: args{
+				ctx:   context.Background(),
+				input: book,
+			},
+			mock: func() {
+				bookRepoMock.EXPECT().UpdateBook(gomock.Any(), book).Return(book, nil)
+			},
+			want:    book,
+			wantErr: nil,
+		},
+		{
+			name: "UpdateBook returns error",
+			fields: fields{
+				bookRepo: bookRepoMock,
+			},
+			args: args{
+				ctx:   context.Background(),
+				input: book,
+			},
+			mock: func() {
+				bookRepoMock.EXPECT().UpdateBook(gomock.Any(), book).Return(entity.Book{}, errors.ErrInternalServerError)
+			},
+			want:    entity.Book{},
+			wantErr: errors.ErrInternalServerError,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			uc := &bookUsecase{
+				bookRepo: tt.fields.bookRepo,
+			}
+			tt.mock()
+
+			got, err := uc.UpdateBook(tt.args.ctx, tt.args.input)
+			assert.Equal(t, tt.want, got)
+			assert.ErrorIs(t, tt.wantErr, err)
+		})
+	}
+}
