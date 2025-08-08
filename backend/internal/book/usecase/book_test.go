@@ -170,3 +170,76 @@ func Test_bookUsecase_AddBook(t *testing.T) {
 		})
 	}
 }
+
+func Test_bookUsecase_GetBookByID(t *testing.T) {
+	ctrl := gomock.NewController(t)
+
+	bookRepoMock := book.NewMockBookRepo(ctrl)
+
+	book := entity.Book{
+		ID:        1,
+		Title:     "Book 1",
+		Author:    "Author 1",
+		Publisher: "Publisher 1",
+		Year:      2021,
+	}
+
+	type fields struct {
+		bookRepo repo.BookRepo
+	}
+	type args struct {
+		ctx context.Context
+		id  int64
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		mock    func()
+		want    entity.Book
+		wantErr error
+	}{
+		{
+			name: "GetBookByID returns book successfully",
+			fields: fields{
+				bookRepo: bookRepoMock,
+			},
+			args: args{
+				ctx: context.Background(),
+				id:  int64(1),
+			},
+			mock: func() {
+				bookRepoMock.EXPECT().GetBookByID(gomock.Any(), int64(1)).Return(book, nil)
+			},
+			want:    book,
+			wantErr: nil,
+		},
+		{
+			name: "GetBookByID returns error",
+			fields: fields{
+				bookRepo: bookRepoMock,
+			},
+			args: args{
+				ctx: context.Background(),
+				id:  int64(1),
+			},
+			mock: func() {
+				bookRepoMock.EXPECT().GetBookByID(gomock.Any(), int64(1)).Return(entity.Book{}, errors.ErrInternalServerError)
+			},
+			want:    entity.Book{},
+			wantErr: errors.ErrInternalServerError,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			uc := &bookUsecase{
+				bookRepo: tt.fields.bookRepo,
+			}
+			tt.mock()
+
+			got, err := uc.GetBookByID(tt.args.ctx, tt.args.id)
+			assert.Equal(t, tt.want, got)
+			assert.ErrorIs(t, tt.wantErr, err)
+		})
+	}
+}
