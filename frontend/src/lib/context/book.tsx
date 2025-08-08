@@ -6,7 +6,7 @@ import { Book } from "../definitions/book"
 type BookContextType = {
   books: Book[]
   setInitialBooks: (initialBooks: Book[]) => void
-  addBook: (book: Book) => Promise<{ data?: Book; error?: Error | null }>
+  addBook: (book: Book) => Promise<{ data?: Book; error?: string | null }>
 }
 
 const BookContext = createContext<BookContextType | undefined>(undefined)

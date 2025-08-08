@@ -18,6 +18,7 @@ import { useBookContext } from "@/lib/context/book"
 import { Book, emptyBook } from "@/lib/definitions/book"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
   const { books, setInitialBooks, addBook } = useBookContext()
@@ -33,10 +34,15 @@ export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
 
   const onSubmit = async (book: Book) => {
     const { error } = await addBook(book)
+
     if (!error) {
       setIsDialogOpen(false)
+      form.reset()
+
+      toast.success("Book added successfully")
+    } else {
+      toast.error("Failed to add a book")
     }
-    form.reset()
   }
 
   return (
@@ -44,7 +50,13 @@ export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
       <div className="flex justify-end">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsDialogOpen(true)
+                form.reset()
+              }}
+            >
               + Add Book
             </Button>
           </DialogTrigger>
