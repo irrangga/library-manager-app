@@ -47,3 +47,14 @@ func (r *bookRepo) AddBook(ctx context.Context, book entity.Book) (entity.Book, 
 
 	return mapper.ToBookEntity(bookModel), nil
 }
+
+func (r *bookRepo) GetBookByID(ctx context.Context, id int64) (entity.Book, error) {
+	var bookModel model.Book
+
+	err := r.db.WithContext(ctx).First(&bookModel, id).Error
+	if err != nil {
+		return entity.Book{}, err
+	}
+
+	return mapper.ToBookEntity(bookModel), nil
+}

@@ -54,3 +54,18 @@ func (h *bookHandler) AddBook(ctx *gin.Context) {
 
 	httputil.Success(ctx, mapper.ToBookResponse(book))
 }
+
+func (h *bookHandler) GetBookByID(ctx *gin.Context) {
+	id, err := httputil.GetPathParamInt64(ctx, "id")
+	if err != nil {
+		httputil.Error(ctx, http.StatusBadRequest, err.Error())
+	}
+
+	book, err := h.bookUsecase.GetBookByID(ctx.Request.Context(), id)
+	if err != nil {
+		httputil.Error(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	httputil.Success(ctx, mapper.ToBookResponse(book))
+}
