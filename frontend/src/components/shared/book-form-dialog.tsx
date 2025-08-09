@@ -1,4 +1,5 @@
 import { Book, emptyBook } from "@/lib/definitions/book"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { Button } from "../ui/button"
 import {
@@ -18,22 +19,27 @@ type Props = {
   isDialogOpen: boolean
   setIsDialogOpen: (open: boolean) => void
   handleSubmit: (book: Book) => Promise<string | null | undefined>
+  initialBook?: Book
 }
 
 export default function BookFormDialog({
   isDialogOpen,
   setIsDialogOpen,
   handleSubmit,
+  initialBook,
 }: Props) {
   const form = useForm({
-    defaultValues: emptyBook,
+    defaultValues: initialBook || emptyBook,
   })
+
+  useEffect(() => {
+    form.reset(initialBook)
+  }, [initialBook])
 
   const onSubmit = async (book: Book) => {
     const error = await handleSubmit(book)
     if (!error) {
       setIsDialogOpen(false)
-      form.reset()
     }
   }
 
@@ -47,14 +53,18 @@ export default function BookFormDialog({
             form.reset()
           }}
         >
-          + Add Book
+          {initialBook ? "Edit Book" : "+ Add Book"}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add new book</DialogTitle>
+          <DialogTitle>
+            {initialBook ? "Edit book" : "Add new book"}
+          </DialogTitle>
           <DialogDescription>
-            Add a new book to your library here.
+            {initialBook
+              ? "Edit the details of this book here."
+              : "Enter the details of the book you want to add here."}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)}>

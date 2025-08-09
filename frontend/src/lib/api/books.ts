@@ -49,3 +49,21 @@ export async function getBookById(
     }
   }
 }
+
+export async function updateBookById(
+  id: string,
+  book: Omit<Book, "id">,
+): Promise<{ data: Book; error: Error | null }> {
+  try {
+    const response = await axios.put<{ data: Book }>(
+      `${env.API_URL}/books/${id}`,
+      book,
+    )
+    return { data: response.data.data, error: null }
+  } catch (error: any) {
+    return {
+      data: emptyBook,
+      error: error.response?.data?.error || "Failed to update a book",
+    }
+  }
+}

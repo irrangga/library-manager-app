@@ -16,13 +16,15 @@ export function BookProvider({ children }: { children: ReactNode }) {
 
   const setInitialBooks = (initialBooks: Book[]) => setBooks(initialBooks)
 
-  const addBook = async (book: Omit<Book, "id">) => {
+  const addBook = async (book: Book) => {
+    const { id, ...body } = book
+
     const response = await fetch(`/api/books`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(book),
+      body: JSON.stringify(body),
     })
 
     const { data, error } = await response.json()
