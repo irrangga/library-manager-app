@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
 import { getBookById } from "@/lib/api/books"
-import { Label } from "@radix-ui/react-label"
 
 export default async function Page({
   params,
@@ -17,11 +17,11 @@ export default async function Page({
           <CardTitle>{data.title || "-"}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Label className="font-semibold">Author:</Label>
+          <Label>Author:</Label>
           <p>{data.author || "-"}</p>
-          <Label className="font-semibold">Publisher:</Label>
+          <Label>Publisher:</Label>
           <p>{data.publisher || "-"}</p>
-          <Label className="font-semibold">Year:</Label>
+          <Label>Year:</Label>
           <p>{data.year || "-"}</p>
         </CardContent>
       </Card>
