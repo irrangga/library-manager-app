@@ -175,12 +175,13 @@ const docTemplate = `{
     "definitions": {
         "dto.BookRequest": {
             "type": "object",
+            "required": [
+                "author",
+                "title"
+            ],
             "properties": {
                 "author": {
                     "type": "string"
-                },
-                "id": {
-                    "type": "integer"
                 },
                 "publisher": {
                     "type": "string"

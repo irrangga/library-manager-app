@@ -3,14 +3,15 @@ definitions:
     properties:
       author:
         type: string
-      id:
-        type: integer
       publisher:
         type: string
       title:
         type: string
       year:
         type: integer
+    required:
+    - author
+    - title
     type: object
   dto.BookResponse:
     properties:

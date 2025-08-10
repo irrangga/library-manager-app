@@ -52,6 +52,7 @@ func (h *bookHandler) AddBook(ctx *gin.Context) {
 	var req dto.BookRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		httputil.Error(ctx, http.StatusBadRequest, err.Error())
+		return
 	}
 
 	input := entity.Book{
@@ -82,6 +83,7 @@ func (h *bookHandler) GetBookByID(ctx *gin.Context) {
 	id, err := httputil.GetPathParamInt64(ctx, "id")
 	if err != nil {
 		httputil.Error(ctx, http.StatusBadRequest, err.Error())
+		return
 	}
 
 	book, err := h.bookUsecase.GetBookByID(ctx.Request.Context(), id)
@@ -106,11 +108,13 @@ func (h *bookHandler) UpdateBookByID(ctx *gin.Context) {
 	id, err := httputil.GetPathParamInt64(ctx, "id")
 	if err != nil {
 		httputil.Error(ctx, http.StatusBadRequest, err.Error())
+		return
 	}
 
 	var req dto.BookRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		httputil.Error(ctx, http.StatusBadRequest, err.Error())
+		return
 	}
 
 	input := entity.Book{
@@ -142,6 +146,7 @@ func (h *bookHandler) DeleteBookByID(ctx *gin.Context) {
 	id, err := httputil.GetPathParamInt64(ctx, "id")
 	if err != nil {
 		httputil.Error(ctx, http.StatusBadRequest, err.Error())
+		return
 	}
 
 	err = h.bookUsecase.DeleteBookByID(ctx.Request.Context(), id)
