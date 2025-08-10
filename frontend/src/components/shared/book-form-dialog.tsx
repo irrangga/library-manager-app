@@ -31,6 +31,7 @@ export default function BookFormDialog({
   const form = useForm({
     defaultValues: initialBook || emptyBook,
   })
+  const { errors } = form.formState
 
   useEffect(() => {
     form.reset(initialBook)
@@ -75,6 +76,9 @@ export default function BookFormDialog({
                 id="title"
                 {...form.register("title", { required: true })}
               />
+              {errors.title && (
+                <span className="text-sm text-red-600">Title is required</span>
+              )}
             </div>
             <div className="grid gap-3">
               <Label htmlFor="author">Author</Label>
@@ -82,6 +86,9 @@ export default function BookFormDialog({
                 id="author"
                 {...form.register("author", { required: true })}
               />
+              {errors.author && (
+                <span className="text-sm text-red-600">Author is required</span>
+              )}
             </div>
             <div className="grid gap-3">
               <Label htmlFor="publisher">Publisher</Label>
