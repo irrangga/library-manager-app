@@ -56,6 +56,20 @@ func (mr *MockBookRepoMockRecorder) AddBook(ctx, book any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddBook", reflect.TypeOf((*MockBookRepo)(nil).AddBook), ctx, book)
 }
 
+// DeleteBookByID mocks base method.
+func (m *MockBookRepo) DeleteBookByID(ctx context.Context, id int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteBookByID", ctx, id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteBookByID indicates an expected call of DeleteBookByID.
+func (mr *MockBookRepoMockRecorder) DeleteBookByID(ctx, id any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteBookByID", reflect.TypeOf((*MockBookRepo)(nil).DeleteBookByID), ctx, id)
+}
+
 // GetBookByID mocks base method.
 func (m *MockBookRepo) GetBookByID(ctx context.Context, id int64) (entity.Book, error) {
 	m.ctrl.T.Helper()

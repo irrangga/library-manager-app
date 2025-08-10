@@ -33,3 +33,7 @@ func (uc *bookUsecase) GetBookByID(ctx context.Context, id int64) (entity.Book, 
 func (uc *bookUsecase) UpdateBook(ctx context.Context, input entity.Book) (entity.Book, error) {
 	return uc.bookRepo.UpdateBook(ctx, input)
 }
+
+func (uc *bookUsecase) DeleteBookByID(ctx context.Context, id int64) error {
+	return uc.bookRepo.DeleteBookByID(ctx, id)
+}

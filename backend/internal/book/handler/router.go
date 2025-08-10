@@ -11,4 +11,5 @@ func RegisterRoutes(router *gin.Engine, h *bookHandler) {
 	book.POST("", h.AddBook)
 	book.GET("/:id", h.GetBookByID)
 	book.PUT("/:id", h.UpdateBookByID)
+	book.DELETE("/:id", h.DeleteBookByID)
 }

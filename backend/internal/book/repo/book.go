@@ -75,3 +75,7 @@ func (r *bookRepo) UpdateBook(ctx context.Context, book entity.Book) (entity.Boo
 
 	return mapper.ToBookEntity(bookModel), nil
 }
+
+func (r *bookRepo) DeleteBookByID(ctx context.Context, id int64) error {
+	return r.db.WithContext(ctx).Delete(&model.Book{}, id).Error
+}

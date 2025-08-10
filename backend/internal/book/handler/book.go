@@ -97,3 +97,18 @@ func (h *bookHandler) UpdateBookByID(ctx *gin.Context) {
 
 	httputil.Success(ctx, mapper.ToBookResponse(book))
 }
+
+func (h *bookHandler) DeleteBookByID(ctx *gin.Context) {
+	id, err := httputil.GetPathParamInt64(ctx, "id")
+	if err != nil {
+		httputil.Error(ctx, http.StatusBadRequest, err.Error())
+	}
+
+	err = h.bookUsecase.DeleteBookByID(ctx.Request.Context(), id)
+	if err != nil {
+		httputil.Error(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	httputil.Success(ctx, nil)
+}

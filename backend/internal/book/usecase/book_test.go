@@ -316,3 +316,64 @@ func Test_bookUsecase_UpdateBook(t *testing.T) {
 		})
 	}
 }
+
+func Test_bookUsecase_DeleteBookByID(t *testing.T) {
+	ctrl := gomock.NewController(t)
+
+	bookRepoMock := book.NewMockBookRepo(ctrl)
+
+	type fields struct {
+		bookRepo repo.BookRepo
+	}
+	type args struct {
+		ctx context.Context
+		id  int64
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		mock    func()
+		wantErr error
+	}{
+		{
+			name: "DeleteBookByID returns nil",
+			fields: fields{
+				bookRepo: bookRepoMock,
+			},
+			args: args{
+				ctx: context.Background(),
+				id:  int64(1),
+			},
+			mock: func() {
+				bookRepoMock.EXPECT().DeleteBookByID(gomock.Any(), int64(1)).Return(nil)
+			},
+			wantErr: nil,
+		},
+		{
+			name: "DeleteBookByID returns error",
+			fields: fields{
+				bookRepo: bookRepoMock,
+			},
+			args: args{
+				ctx: context.Background(),
+				id:  int64(1),
+			},
+			mock: func() {
+				bookRepoMock.EXPECT().DeleteBookByID(gomock.Any(), int64(1)).Return(errors.ErrInternalServerError)
+			},
+			wantErr: errors.ErrInternalServerError,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			uc := &bookUsecase{
+				bookRepo: tt.fields.bookRepo,
+			}
+			tt.mock()
+
+			err := uc.DeleteBookByID(tt.args.ctx, tt.args.id)
+			assert.ErrorIs(t, tt.wantErr, err)
+		})
+	}
+}
