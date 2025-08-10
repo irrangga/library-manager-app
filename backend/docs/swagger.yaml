@@ -1,0 +1,134 @@
+definitions:
+  dto.BookRequest:
+    properties:
+      author:
+        type: string
+      id:
+        type: integer
+      publisher:
+        type: string
+      title:
+        type: string
+      year:
+        type: integer
+    type: object
+  dto.BookResponse:
+    properties:
+      author:
+        type: string
+      id:
+        type: integer
+      publisher:
+        type: string
+      title:
+        type: string
+      year:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /books:
+    get:
+      consumes:
+      - application/json
+      description: Get all books
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.BookResponse'
+      summary: Get all books
+      tags:
+      - Book
+    post:
+      consumes:
+      - application/json
+      description: Add book
+      parameters:
+      - description: Book
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/dto.BookRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.BookResponse'
+      summary: Add book
+      tags:
+      - Book
+  /books/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete book by id
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.BookResponse'
+      summary: Delete book by id
+      tags:
+      - Book
+    get:
+      consumes:
+      - application/json
+      description: Get book by id
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.BookResponse'
+      summary: Get book by id
+      tags:
+      - Book
+    put:
+      consumes:
+      - application/json
+      description: Update book by id
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Book
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/dto.BookRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.BookResponse'
+      summary: Update book by id
+      tags:
+      - Book
+swagger: "2.0"

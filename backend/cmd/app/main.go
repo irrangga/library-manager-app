@@ -2,12 +2,16 @@ package main
 
 import (
 	"backend/config"
+	"backend/docs"
 	bookhandler "backend/internal/book/handler"
 	bookrepo "backend/internal/book/repo"
 	bookusecase "backend/internal/book/usecase"
 	"backend/pkg/middleware"
 	"fmt"
 	"log"
+
+	swaggerfiles "github.com/swaggo/files"
+	ginswagger "github.com/swaggo/gin-swagger"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
@@ -49,6 +53,9 @@ func main() {
 	router := gin.New()
 	router.Use(middleware.Logger())
 	bookhandler.RegisterRoutes(router, bookHandler)
+
+	docs.SwaggerInfo.BasePath = "/"
+	router.GET("/swagger/*any", ginswagger.WrapHandler(swaggerfiles.Handler))
 
 	httpPort := ":" + cfg.HTTP.Port
 	router.Run(httpPort)
