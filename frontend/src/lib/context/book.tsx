@@ -7,6 +7,7 @@ type BookContextType = {
   books: Book[]
   setInitialBooks: (initialBooks: Book[]) => void
   addBook: (book: Book) => Promise<{ data?: Book; error?: string | null }>
+  deleteBookById: (id: number) => Promise<{ error?: string | null }>
 }
 
 const BookContext = createContext<BookContextType | undefined>(undefined)
@@ -36,8 +37,22 @@ export function BookProvider({ children }: { children: ReactNode }) {
     return { data }
   }
 
+  const deleteBookById = async (id: number) => {
+    const response = await fetch(`/api/books/${id}`, {
+      method: "DELETE",
+    })
+    const { error } = await response.json()
+    if (error) {
+      return { error }
+    }
+    setBooks((prev) => prev.filter((book) => book.id !== id))
+    return { error }
+  }
+
   return (
-    <BookContext.Provider value={{ books, setInitialBooks, addBook }}>
+    <BookContext.Provider
+      value={{ books, setInitialBooks, addBook, deleteBookById }}
+    >
       {children}
     </BookContext.Provider>
   )

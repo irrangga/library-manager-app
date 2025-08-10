@@ -67,3 +67,16 @@ export async function updateBookById(
     }
   }
 }
+
+export async function deleteBookById(
+  id: string,
+): Promise<{ error: Error | null }> {
+  try {
+    await axios.delete(`${env.API_URL}/books/${id}`)
+    return { error: null }
+  } catch (error: any) {
+    return {
+      error: error.response?.data?.error || "Failed to delete a book",
+    }
+  }
+}

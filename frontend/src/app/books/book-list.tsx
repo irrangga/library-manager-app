@@ -10,7 +10,7 @@ import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
 export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
-  const { books, setInitialBooks, addBook } = useBookContext()
+  const { books, setInitialBooks, addBook, deleteBookById } = useBookContext()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   useEffect(() => {
@@ -25,6 +25,15 @@ export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
       toast.error("Failed to add a book")
     }
     return error
+  }
+
+  const handleDelete = async (id: number) => {
+    const { error } = await deleteBookById(id)
+    if (!error) {
+      toast.success("Book deleted successfully")
+    } else {
+      toast.error("Failed to delete a book")
+    }
   }
 
   return (
@@ -55,7 +64,10 @@ export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
                 <Button
                   size="sm"
                   variant="destructive"
-                  onClick={(e) => e.preventDefault()}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleDelete(book.id)
+                  }}
                 >
                   Delete
                 </Button>
