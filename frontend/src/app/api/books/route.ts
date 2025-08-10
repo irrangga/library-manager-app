@@ -1,6 +1,11 @@
-import { addBook } from "@/lib/api/books"
+import { addBook, getBooks } from "@/lib/api/books"
 import { Book } from "@/lib/definitions/book"
 import { NextResponse } from "next/server"
+
+export async function GET() {
+  const { data, error } = await getBooks()
+  return NextResponse.json({ data, error })
+}
 
 export async function POST(request: Request) {
   const body: Omit<Book, "id"> = await request.json()
