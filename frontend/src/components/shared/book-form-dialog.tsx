@@ -53,7 +53,7 @@ export default function BookFormDialog({
             form.reset()
           }}
         >
-          {initialBook ? "Edit Book" : "+ Add Book"}
+          {initialBook ? "Edit book" : "+ Add book"}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

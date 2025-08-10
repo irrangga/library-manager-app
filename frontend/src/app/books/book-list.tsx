@@ -6,21 +6,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useBookContext } from "@/lib/context/book"
 import { Book } from "@/lib/definitions/book"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
 export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
-  const { books, setInitialBooks, getBooks, addBook, deleteBookById } =
-    useBookContext()
+  const { books, setInitialBooks, addBook, deleteBookById } = useBookContext()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const pathname = usePathname()
 
   useEffect(() => {
     setInitialBooks(initialBooks)
-    if (pathname === "/books") {
-      getBooks()
-    }
   }, [initialBooks])
 
   const handleSubmit = async (book: Book) => {

@@ -6,7 +6,6 @@ import { Book } from "../definitions/book"
 type BookContextType = {
   books: Book[]
   setInitialBooks: (initialBooks: Book[]) => void
-  getBooks: () => Promise<{ data?: Book[]; error?: string | null }>
   addBook: (book: Book) => Promise<{ data?: Book; error?: string | null }>
   deleteBookById: (id: number) => Promise<{ error?: string | null }>
 }
@@ -17,23 +16,6 @@ export function BookProvider({ children }: { children: ReactNode }) {
   const [books, setBooks] = useState<Book[]>([])
 
   const setInitialBooks = (initialBooks: Book[]) => setBooks(initialBooks)
-
-  const getBooks = async () => {
-    const response = await fetch(`/api/books`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-
-    const { data, error } = await response.json()
-    if (error) {
-      return { error }
-    }
-
-    setBooks(data)
-    return { data }
-  }
 
   const addBook = async (book: Book) => {
     const { id, ...body } = book
@@ -72,7 +54,6 @@ export function BookProvider({ children }: { children: ReactNode }) {
       value={{
         books,
         setInitialBooks,
-        getBooks,
         addBook,
         deleteBookById,
       }}
