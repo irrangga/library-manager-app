@@ -6,6 +6,8 @@ import (
 	bookhandler "backend/internal/book/handler"
 	bookrepo "backend/internal/book/repo"
 	bookusecase "backend/internal/book/usecase"
+	urlhandler "backend/internal/url/handler"
+	urlusecase "backend/internal/url/usecase"
 	"backend/pkg/middleware"
 	"fmt"
 	"log"
@@ -45,14 +47,18 @@ func main() {
 
 	// Usecase initialization.
 	bookUsecase := bookusecase.NewBookUsecase(bookRepo)
+	urlUsecase := urlusecase.NewURLUsecase()
 
 	// Handler initialization.
 	bookHandler := bookhandler.NewBookHandler(bookUsecase)
+	urlHandler := urlhandler.NewURLHandler(urlUsecase)
 
 	// Router inititialization.
 	router := gin.New()
 	router.Use(middleware.Logger())
+
 	bookhandler.RegisterRoutes(router, bookHandler)
+	urlhandler.RegisterRoutes(router, urlHandler)
 
 	docs.SwaggerInfo.BasePath = "/"
 	router.GET("/swagger/*any", ginswagger.WrapHandler(swaggerfiles.Handler))

@@ -170,9 +170,56 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/url": {
+            "post": {
+                "description": "Cleanup URL",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "URL"
+                ],
+                "summary": "Cleanup URL",
+                "parameters": [
+                    {
+                        "description": "URL",
+                        "name": "url",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.URLRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.URLResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "constant.URLOperation": {
+            "type": "string",
+            "enum": [
+                "redirection",
+                "canonical",
+                "all"
+            ],
+            "x-enum-varnames": [
+                "URLOperationRedirection",
+                "URLOperationCanonical",
+                "URLOperationAll"
+            ]
+        },
         "dto.BookRequest": {
             "type": "object",
             "required": [
@@ -211,6 +258,29 @@ const docTemplate = `{
                 },
                 "year": {
                     "type": "integer"
+                }
+            }
+        },
+        "dto.URLRequest": {
+            "type": "object",
+            "required": [
+                "operation",
+                "url"
+            ],
+            "properties": {
+                "operation": {
+                    "$ref": "#/definitions/constant.URLOperation"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.URLResponse": {
+            "type": "object",
+            "properties": {
+                "processed_url": {
+                    "type": "string"
                 }
             }
         }

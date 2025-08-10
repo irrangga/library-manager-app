@@ -1,4 +1,14 @@
 definitions:
+  constant.URLOperation:
+    enum:
+    - redirection
+    - canonical
+    - all
+    type: string
+    x-enum-varnames:
+    - URLOperationRedirection
+    - URLOperationCanonical
+    - URLOperationAll
   dto.BookRequest:
     properties:
       author:
@@ -25,6 +35,21 @@ definitions:
         type: string
       year:
         type: integer
+    type: object
+  dto.URLRequest:
+    properties:
+      operation:
+        $ref: '#/definitions/constant.URLOperation'
+      url:
+        type: string
+    required:
+    - operation
+    - url
+    type: object
+  dto.URLResponse:
+    properties:
+      processed_url:
+        type: string
     type: object
 info:
   contact: {}
@@ -132,4 +157,26 @@ paths:
       summary: Update book by id
       tags:
       - Book
+  /url:
+    post:
+      consumes:
+      - application/json
+      description: Cleanup URL
+      parameters:
+      - description: URL
+        in: body
+        name: url
+        required: true
+        schema:
+          $ref: '#/definitions/dto.URLRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.URLResponse'
+      summary: Cleanup URL
+      tags:
+      - URL
 swagger: "2.0"
