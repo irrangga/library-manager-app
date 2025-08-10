@@ -5,5 +5,5 @@ type BookResponse struct {
 	Title     string `json:"title"`
 	Author    string `json:"author"`
 	Publisher string `json:"publisher"`
-	Year      int    `json:"year"`
+	Year      int    `json:"year,omitempty"`
 }
