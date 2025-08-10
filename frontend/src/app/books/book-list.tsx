@@ -1,6 +1,7 @@
 "use client"
 
 import BookFormDialog from "@/components/shared/book-form-dialog"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useBookContext } from "@/lib/context/book"
 import { Book } from "@/lib/definitions/book"
@@ -37,7 +38,7 @@ export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {books.map((book) => (
-          <Card key={book.id} asChild>
+          <Card key={book.id} asChild className="group relative cursor-pointer">
             <Link href={`/books/${book.id}`}>
               <CardHeader>
                 <CardTitle>{book.title || "-"}</CardTitle>
@@ -47,6 +48,18 @@ export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
                 <p>{book.publisher || "-"}</p>
                 <p>{book.year || "-"}</p>
               </CardContent>
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity flex justify-center gap-4">
+                <Link href={`/books/${book.id}?edit=true`}>
+                  <Button size="sm">Edit</Button>
+                </Link>
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  Delete
+                </Button>
+              </div>
             </Link>
           </Card>
         ))}

@@ -4,12 +4,23 @@ import BookFormDialog from "@/components/shared/book-form-dialog"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Book } from "@/lib/definitions/book"
-import { useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
 export default function BookDetails({ initialBook }: { initialBook: Book }) {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
   const [book, setBook] = useState(initialBook)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  useEffect(() => {
+    if (searchParams.get("edit")) {
+      setIsDialogOpen(true)
+      router.replace(pathname)
+    }
+  }, [])
 
   const handleSubmit = async (book: Book) => {
     const { id, ...body } = book
