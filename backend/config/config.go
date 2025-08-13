@@ -20,9 +20,9 @@ type (
 
 	PostgresConfig struct {
 		Host     string `env:"POSTGRES_HOST"`
-		Username string `env:"POSTGRES_USERNAME"`
+		Username string `env:"POSTGRES_USER"`
 		Password string `env:"POSTGRES_PASSWORD"`
-		Name     string `env:"POSTGRES_NAME"`
+		Name     string `env:"POSTGRES_DB"`
 		Port     string `env:"POSTGRES_PORT"`
 		SslMode  string `env:"POSTGRES_SSL_MODE"`
 	}

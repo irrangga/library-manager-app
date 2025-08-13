@@ -90,7 +90,6 @@ backend/
 ### Prerequisites
 
 - **Go 1.21+** installed
-- **PostgreSQL 12+**
 
 ### Installation
 
@@ -124,9 +123,13 @@ go get -u gorm.io/driver/postgres
 
 ### Database setup
 
-1. Install PostgreSQL on your system.
+1. Set the value of PostgreSQL related in the `.env` file.
 
-2. Create the database and a user with the necessary privileges and update it to `.env` file.
+2. Initiate the database:
+
+```bash
+docker-compose up
+```
 
 3. Migrate the database:
 
