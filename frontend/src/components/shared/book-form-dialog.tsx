@@ -102,6 +102,10 @@ export default function BookFormDialog({
                 {...form.register("year", { valueAsNumber: true })}
               />
             </div>
+            <div className="grid gap-3">
+              <Label htmlFor="image-url">Image URL</Label>
+              <Input id="image-url" {...form.register("image_url")} />
+            </div>
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline">Cancel</Button>

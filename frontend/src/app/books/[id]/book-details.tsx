@@ -3,7 +3,6 @@
 import BookFormDialog from "@/components/shared/book-form-dialog"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
 import { Book } from "@/lib/definitions/book"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
@@ -64,16 +63,31 @@ export default function BookDetails({ initialBook }: { initialBook: Book }) {
         />
       </div>
       <Card>
-        <CardHeader className="flex items-center justify-between">
-          <CardTitle>{book.title || "-"}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Label>Author:</Label>
-          <p>{book.author || "-"}</p>
-          <Label>Publisher:</Label>
-          <p>{book.publisher || "-"}</p>
-          <Label>Year:</Label>
-          <p>{book.year || "-"}</p>
+        <CardContent className="flex flex-row">
+          <img
+            src={book.image_url}
+            alt={book.title}
+            className="h-72 w-48 object-cover"
+          />
+          <div className="flex-1 space-y-4">
+            <CardHeader>
+              <CardTitle>{book.title || "-"}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <p className="font-medium">Author:</p>
+                <p>{book.author || "-"}</p>
+              </div>
+              <div>
+                <p className="font-medium">Publisher:</p>
+                <p>{book.publisher || "-"}</p>
+              </div>
+              <div>
+                <p className="font-medium">Year:</p>
+                <p>{book.year || "-"}</p>
+              </div>
+            </CardContent>
+          </div>
         </CardContent>
       </Card>
     </div>

@@ -47,10 +47,21 @@ export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {books.map((book) => (
-          <Card key={book.id} asChild className="group relative cursor-pointer">
+          <Card
+            key={book.id}
+            asChild
+            className="group relative cursor-pointer gap-4"
+          >
             <Link href={`/books/${book.id}`}>
-              <CardHeader>
-                <CardTitle>{book.title || "-"}</CardTitle>
+              <CardHeader className="flex flex-col items-center gap-4">
+                <img
+                  src={book.image_url}
+                  alt={book.title}
+                  className="h-72 w-auto object-cover"
+                />
+                <CardTitle className="self-start">
+                  {book.title || "-"}
+                </CardTitle>
               </CardHeader>
               <CardContent className="text-sm space-y-1">
                 <p>{book.author || "-"}</p>

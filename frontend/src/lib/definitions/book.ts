@@ -4,6 +4,7 @@ export type Book = {
   author: string
   publisher: string
   year: number | undefined
+  image_url: string
 }
 
 export const emptyBook: Book = {
@@ -12,4 +13,5 @@ export const emptyBook: Book = {
   author: "",
   publisher: "",
   year: undefined,
+  image_url: "",
 }
