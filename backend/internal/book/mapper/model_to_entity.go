@@ -22,6 +22,7 @@ func ToBookEntity(bookModel model.Book) entity.Book {
 		Author:    bookModel.Author,
 		Publisher: bookModel.Publisher,
 		Year:      bookModel.Year,
+		ImageURL:  bookModel.ImageURL,
 		CreatedAt: bookModel.CreatedAt,
 		UpdatedAt: bookModel.UpdatedAt,
 	}

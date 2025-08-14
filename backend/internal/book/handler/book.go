@@ -60,6 +60,7 @@ func (h *bookHandler) AddBook(ctx *gin.Context) {
 		Author:    req.Author,
 		Publisher: req.Publisher,
 		Year:      req.Year,
+		ImageURL:  req.ImageURL,
 	}
 
 	book, err := h.bookUsecase.AddBook(ctx.Request.Context(), input)
@@ -123,6 +124,7 @@ func (h *bookHandler) UpdateBookByID(ctx *gin.Context) {
 		Author:    req.Author,
 		Publisher: req.Publisher,
 		Year:      req.Year,
+		ImageURL:  req.ImageURL,
 	}
 
 	book, err := h.bookUsecase.UpdateBook(ctx.Request.Context(), input)

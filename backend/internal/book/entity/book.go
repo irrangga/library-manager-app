@@ -8,6 +8,7 @@ type Book struct {
 	Author    string
 	Publisher string
 	Year      int
+	ImageURL  string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

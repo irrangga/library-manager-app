@@ -38,6 +38,7 @@ func (r *bookRepo) AddBook(ctx context.Context, book entity.Book) (entity.Book, 
 		Author:    book.Author,
 		Publisher: book.Publisher,
 		Year:      book.Year,
+		ImageURL:  book.ImageURL,
 	}
 
 	err := r.db.WithContext(ctx).Create(&bookModel).Error
@@ -66,6 +67,7 @@ func (r *bookRepo) UpdateBook(ctx context.Context, book entity.Book) (entity.Boo
 		Author:    book.Author,
 		Publisher: book.Publisher,
 		Year:      book.Year,
+		ImageURL:  book.ImageURL,
 	}
 
 	err := r.db.WithContext(ctx).Save(&bookModel).Error

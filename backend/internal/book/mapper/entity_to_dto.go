@@ -22,5 +22,6 @@ func ToBookResponse(book entity.Book) dto.BookResponse {
 		Author:    book.Author,
 		Publisher: book.Publisher,
 		Year:      book.Year,
+		ImageURL:  book.ImageURL,
 	}
 }

@@ -24,7 +24,8 @@ CREATE TABLE public.books (
     publisher character varying(255),
     year integer,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
-    updated_at timestamp with time zone DEFAULT now() NOT NULL
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    image_url text
 );
 
 
@@ -90,4 +91,5 @@ ALTER TABLE ONLY public.schema_migrations
 
 INSERT INTO public.schema_migrations (version) VALUES
     ('20250806041803'),
-    ('20250807040718');
+    ('20250807040718'),
+    ('20250813075021');

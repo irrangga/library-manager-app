@@ -5,4 +5,5 @@ type BookRequest struct {
 	Author    string `json:"author" binding:"required"`
 	Publisher string `json:"publisher"`
 	Year      int    `json:"year"`
+	ImageURL  string `json:"image_url"`
 }
