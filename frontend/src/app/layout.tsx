@@ -29,7 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <BookProvider>{children}</BookProvider>
+        <main className="max-w-screen-xl mx-auto">
+          <BookProvider>{children}</BookProvider>
+        </main>
         <Toaster position="top-center" />
       </body>
     </html>
