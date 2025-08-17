@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"backend/internal/book/entity"
-	"backend/internal/book/repo"
+	"backend/src/book/entity"
+	"backend/src/book/repo"
 	"context"
 )
 

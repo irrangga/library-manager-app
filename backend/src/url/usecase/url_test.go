@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"backend/internal/url/entity"
 	"backend/pkg/constant"
+	"backend/src/url/entity"
 	"context"
 	"testing"
 

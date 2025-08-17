@@ -1,8 +1,8 @@
 package mapper
 
 import (
-	"backend/internal/book/entity"
-	"backend/internal/book/repo/model"
+	"backend/src/book/entity"
+	"backend/src/book/repo/model"
 )
 
 func ToBookEntities(bookModels []model.Book) []entity.Book {

@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"backend/internal/url/entity"
-	"backend/internal/url/handler/dto"
-	"backend/internal/url/usecase"
 	"backend/pkg/constant"
+	"backend/src/url/entity"
+	"backend/src/url/handler/dto"
+	"backend/src/url/usecase"
 	"errors"
 	"net/http"
 

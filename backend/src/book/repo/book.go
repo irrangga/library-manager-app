@@ -1,9 +1,9 @@
 package repo
 
 import (
-	"backend/internal/book/entity"
-	"backend/internal/book/mapper"
-	"backend/internal/book/repo/model"
+	"backend/src/book/entity"
+	"backend/src/book/mapper"
+	"backend/src/book/repo/model"
 	"context"
 
 	"gorm.io/gorm"

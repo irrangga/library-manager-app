@@ -3,12 +3,12 @@ package main
 import (
 	"backend/config"
 	"backend/docs"
-	bookhandler "backend/internal/book/handler"
-	bookrepo "backend/internal/book/repo"
-	bookusecase "backend/internal/book/usecase"
-	urlhandler "backend/internal/url/handler"
-	urlusecase "backend/internal/url/usecase"
 	"backend/pkg/middleware"
+	bookhandler "backend/src/book/handler"
+	bookrepo "backend/src/book/repo"
+	bookusecase "backend/src/book/usecase"
+	urlhandler "backend/src/url/handler"
+	urlusecase "backend/src/url/usecase"
 	"fmt"
 	"log"
 

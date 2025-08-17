@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"backend/internal/url/entity"
+	"backend/src/url/entity"
 	"context"
 )
 

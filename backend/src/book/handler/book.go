@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"backend/internal/book/entity"
-	"backend/internal/book/handler/dto"
-	"backend/internal/book/mapper"
-	"backend/internal/book/usecase"
 	"backend/pkg/httputil"
+	"backend/src/book/entity"
+	"backend/src/book/handler/dto"
+	"backend/src/book/mapper"
+	"backend/src/book/usecase"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

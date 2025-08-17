@@ -2,9 +2,9 @@ package usecase
 
 import (
 	"backend/generated/mockgen/book"
-	"backend/internal/book/entity"
-	"backend/internal/book/repo"
 	"backend/pkg/errors"
+	"backend/src/book/entity"
+	"backend/src/book/repo"
 	"context"
 	"testing"
 

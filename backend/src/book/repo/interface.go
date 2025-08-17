@@ -1,7 +1,7 @@
 package repo
 
 import (
-	"backend/internal/book/entity"
+	"backend/src/book/entity"
 	"context"
 )
 
