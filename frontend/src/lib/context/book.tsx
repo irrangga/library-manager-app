@@ -5,7 +5,7 @@ import { Book } from "../definitions/book"
 
 type BookContextType = {
   books: Book[]
-  setInitialBooks: (initialBooks: Book[]) => void
+  setBooks: (initialBooks: Book[]) => void
   addBook: (book: Book) => Promise<{ data?: Book; error?: string | null }>
   deleteBookById: (id: number) => Promise<{ error?: string | null }>
 }
@@ -15,10 +15,9 @@ const BookContext = createContext<BookContextType | undefined>(undefined)
 export function BookProvider({ children }: { children: ReactNode }) {
   const [books, setBooks] = useState<Book[]>([])
 
-  const setInitialBooks = (initialBooks: Book[]) => setBooks(initialBooks)
-
   const addBook = async (book: Book) => {
     const { id, ...body } = book
+    void id
 
     const response = await fetch(`/api/books`, {
       method: "POST",
@@ -53,7 +52,7 @@ export function BookProvider({ children }: { children: ReactNode }) {
     <BookContext.Provider
       value={{
         books,
-        setInitialBooks,
+        setBooks,
         addBook,
         deleteBookById,
       }}

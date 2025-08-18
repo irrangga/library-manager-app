@@ -35,7 +35,7 @@ export default function BookFormDialog({
 
   useEffect(() => {
     form.reset(initialBook)
-  }, [initialBook])
+  }, [initialBook, form])
 
   const onSubmit = async (book: Book) => {
     const error = await handleSubmit(book)

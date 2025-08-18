@@ -10,12 +10,12 @@ import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
 export default function BookList({ initialBooks }: { initialBooks: Book[] }) {
-  const { books, setInitialBooks, addBook, deleteBookById } = useBookContext()
+  const { books, setBooks, addBook, deleteBookById } = useBookContext()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   useEffect(() => {
-    setInitialBooks(initialBooks)
-  }, [initialBooks])
+    setBooks(initialBooks)
+  }, [initialBooks, setBooks])
 
   const handleSubmit = async (book: Book) => {
     const { error } = await addBook(book)

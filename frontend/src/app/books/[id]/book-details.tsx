@@ -22,12 +22,12 @@ export default function BookDetails({ initialBook }: { initialBook: Book }) {
       setIsDialogOpen(true)
       router.replace(pathname)
     }
-  }, [])
+  }, [searchParams, router, pathname])
 
   const handleSubmit = async (book: Book) => {
     const { id, ...body } = book
 
-    const response = await fetch(`/api/books/${book.id}`, {
+    const response = await fetch(`/api/books/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 import { env } from "@/lib/config/env"
 import { Book, emptyBook } from "@/lib/definitions/book"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 
 export async function getBooks(): Promise<{
   data: Book[]
@@ -9,10 +9,12 @@ export async function getBooks(): Promise<{
   try {
     const response = await axios.get<{ data: Book[] }>(`${env.API_URL}/books`)
     return { data: response.data.data, error: null }
-  } catch (error: any) {
+  } catch (error) {
+    const axiosError = error as AxiosError<{ error: string }>
     return {
       data: [],
-      error: error.response?.data?.error || "Failed to fetch books",
+      error:
+        new Error(axiosError.response?.data?.error) || "Failed to fetch books",
     }
   }
 }
@@ -26,10 +28,12 @@ export async function addBook(
       book,
     )
     return { data: response.data.data, error: null }
-  } catch (error: any) {
+  } catch (error) {
+    const axiosError = error as AxiosError<{ error: string }>
     return {
       data: emptyBook,
-      error: error.response?.data?.error || "Failed to add a book",
+      error:
+        new Error(axiosError.response?.data?.error) || "Failed to add a book",
     }
   }
 }
@@ -42,10 +46,12 @@ export async function getBookById(
       `${env.API_URL}/books/${id}`,
     )
     return { data: response.data.data, error: null }
-  } catch (error: any) {
+  } catch (error) {
+    const axiosError = error as AxiosError<{ error: string }>
     return {
       data: emptyBook,
-      error: error.response?.data?.error || "Failed to fetch a book",
+      error:
+        new Error(axiosError.response?.data?.error) || "Failed to fetch a book",
     }
   }
 }
@@ -60,10 +66,13 @@ export async function updateBookById(
       book,
     )
     return { data: response.data.data, error: null }
-  } catch (error: any) {
+  } catch (error) {
+    const axiosError = error as AxiosError<{ error: string }>
     return {
       data: emptyBook,
-      error: error.response?.data?.error || "Failed to update a book",
+      error:
+        new Error(axiosError.response?.data?.error) ||
+        "Failed to update a book",
     }
   }
 }
@@ -74,9 +83,12 @@ export async function deleteBookById(
   try {
     await axios.delete(`${env.API_URL}/books/${id}`)
     return { error: null }
-  } catch (error: any) {
+  } catch (error) {
+    const axiosError = error as AxiosError<{ error: string }>
     return {
-      error: error.response?.data?.error || "Failed to delete a book",
+      error:
+        new Error(axiosError.response?.data?.error) ||
+        "Failed to delete a book",
     }
   }
 }
